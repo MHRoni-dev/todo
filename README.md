@@ -1,4 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Technology Used
+- Language : Typescript
+- Framework : NextJs
+- Database : MongoDB
+- ODM : Mongoose
+- Query : Tanstack Query fka React Query, Axios 
+- UI : Shadcn 
+- Validation : zod
+
+
+![TypeScript](https://img.shields.io/badge/TypeScript-3178c6?style=for-the-badge&logo=typescript&logoColor=white)
+![TypeScript](https://img.shields.io/badge/NextJS-ffffff?style=for-the-badge&logo=next.js&logoColor=black)
+![TypeScript](https://img.shields.io/badge/React-ffffff?style=for-the-badge&logo=react&logoColor=blue)
+![TypeScript](https://img.shields.io/badge/MongoDB-white?style=for-the-badge&logo=mongodb&logoColor=green)
+![TypeScript](https://img.shields.io/badge/Mongoose-red?style=for-the-badge&logo=&logoColor=red)
+![TypeScript](https://img.shields.io/badge/React%20Query-white?style=for-the-badge&logo=reactquery&logoColor=FF4154)
+![TypeScript](https://img.shields.io/badge/Axios-white?style=for-the-badge&logo=axios&logoColor=5A29E4)
+![TypeScript](https://img.shields.io/badge/Shadcn%20UI-white?style=for-the-badge&logo=shadcnui&logoColor=black)
+![TypeScript](https://img.shields.io/badge/Zod-white?style=for-the-badge&logo=zod&logoColor=3E67B1)
+
+
+ 
+## Feature
+- [x] CRUD  Todo 
+- [x] Toggle Between Completed and Active state of a todo
+- [ ] Drag and Drop
+- [ ] Sorting
+- [ ] Filtering
 
 ## Getting Started
 
@@ -14,23 +41,5 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the App.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
