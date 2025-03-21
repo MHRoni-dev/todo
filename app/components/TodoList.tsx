@@ -3,6 +3,7 @@
 import React, { useMemo } from 'react'
 import TodoItem from './TodoItem';
 import { useTodos } from '../feature/todoQueries';
+import Dropable from '@/components/dnd/Dropable';
 
 type Props = {
   status : "all" | "active" | "completed"
@@ -20,12 +21,14 @@ export default function TodoList({status} : Props) {
   
 
   return (
-    <div className='max-w-md space-y-4'>
+    <Dropable id={status}>
+      <div className='max-w-md space-y-4'>
       {
         filterdData.length > 0 ? filterdData.map(todo => (
           <TodoItem key={todo._id} todo={todo} />
         )) : <div className='py-2'>No todo {status}</div>
       }
       </div>
+    </Dropable>
   )
 }

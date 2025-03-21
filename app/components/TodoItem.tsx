@@ -5,6 +5,7 @@ import { Check, Delete, Pen, PenOff, } from 'lucide-react'
 import { useState } from 'react'
 import { useTodoDelete, useTodoUpdate } from '../feature/todoQueries'
 import { Card, CardContent } from '@/components/ui/card'
+import Draggable from '@/components/dnd/Draggable'
 
 export default function TodoItem({ todo }: { todo: Todo }) {
 
@@ -33,6 +34,10 @@ export default function TodoItem({ todo }: { todo: Todo }) {
   const handleDelete = () => {
     deleteTodo.mutate(todo._id)
   }
+
+  const handleToggleCompleted = () => {
+    updateTodo.mutate({...todo, completed: !todo.completed})
+  }
   
 
   const isEditAble = () => !todo.completed && enabled
@@ -41,35 +46,38 @@ export default function TodoItem({ todo }: { todo: Todo }) {
     return <ShowTodoItem todo={todo} />
   }
 
-  return (
-    <Card className=''>
-      <CardContent>
-        <div key={todo._id} className='flex items-center gap-4' >
-          <Checkbox  checked={todo.completed} onClick={() => updateTodo.mutate({...todo, completed: !todo.completed})} />
-          {
-            enabled ? (
-              <Input placeholder={todo.title} disabled={!isEditAble()} value={title} onChange={(e) => setTitle(e.target.value)} />
-            ) : (
-              <p className='w-full py-1.5'>{todo.title}</p>
-            )
-          }
-          { !enabled ? (
-              <div className='flex items-center gap-1'>
-                {!todo.completed && <Pen onClick={handlePenClick} /> }
-                <Delete onClick={handleDelete} />
-              </div>
-            )
-          : (
-              <div className='flex items-center gap-1'>
-                <PenOff onClick={handleCancel} />
-                <Check onClick={handleSubmit} />
-              </div>
-            )
-          }
 
-        </div>
-      </CardContent>
-    </Card>
+  return (
+    <Draggable id={todo._id} data={todo}>
+      <Card className=''>
+        <CardContent>
+          <div key={todo._id} className='flex items-center gap-4' >
+            <Checkbox  checked={todo.completed} onClick={handleToggleCompleted} onPointerDown={(e) => e.stopPropagation()}/>
+            {
+              enabled ? (
+                <Input placeholder={todo.title} disabled={!isEditAble()} value={title} onChange={(e) => setTitle(e.target.value)} />
+              ) : (
+                <p className='w-full py-1.5'>{todo.title}</p>
+              )
+            }
+            { !enabled ? (
+                <div className='flex items-center gap-1'>
+                  {!todo.completed && <Pen onClick={handlePenClick} onPointerDown={(e) => e.stopPropagation()}/> }
+                  <Delete onClick={handleDelete} onPointerDown={(e) => e.stopPropagation()}/>
+                </div>
+              )
+            : (
+                <div className='flex items-center gap-1'>
+                  <PenOff onClick={handleCancel} onPointerDown={(e) => e.stopPropagation()}/>
+                  <Check onClick={handleSubmit} onPointerDown={(e) => e.stopPropagation()}/>
+                </div>
+              )
+            }
+
+          </div>
+        </CardContent>
+      </Card>
+    </Draggable>
   )
 }
 
@@ -86,16 +94,22 @@ function ShowTodoItem ({todo} : {todo: Todo}) {
     deleteTodo.mutate(todo._id)
   }
 
+  const handleToggleCompleted = () => {
+    updateTodo.mutate({...todo, completed: !todo.completed})
+  }
+  
 
   return (
-    <Card>
+    <Draggable id={todo._id} data={todo}>
+      <Card>
         <CardContent>
           <div key={todo._id} className='flex items-center gap-4 w-full max-w-md ' >
-            <Checkbox  checked={todo.completed} onClick={() => updateTodo.mutate({...todo, completed: !todo.completed})} />
+            <Checkbox  checked={todo.completed} onClick={handleToggleCompleted} onPointerDown={(e) => e.stopPropagation()}/>
             <p className='line-through flex-1 py-1.5'>{todo.title}</p>
-            <Delete onClick={handleDelete} />
+            <Delete onClick={handleDelete} onPointerDown={(e) => e.stopPropagation()}/>
           </div>
         </CardContent>
-    </Card>
+      </Card>
+    </Draggable>
   )
 }
