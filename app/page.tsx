@@ -1,9 +1,9 @@
 import { Toaster } from 'sonner';
 import AddTodoForm from './add-todo/components/AddTodoForm';
 import QueryProvider from './components/QueryProvider';
-import TodoList from './components/TodoList';
 import ToggleTheme from '@/components/theme/ToggleTheme';
-import { CardTitle } from '@/components/ui/card';
+import TodoView from './components/TodoView';
+import { DndProvider } from '@/context/DndProvider';
 
 export default function Home() {
   return (
@@ -15,14 +15,9 @@ export default function Home() {
             <AddTodoForm />
           </div>
           <div className='grid grid-cols-1 sm:grid-cols-2 gap-y-16 sm:gap-y-4  gap-x-24 justify-around'>
-            <div className='space-y-4'>
-              <CardTitle>Active</CardTitle>
-              <TodoList status='active' />
-            </div>
-            <div className='space-y-4'>
-              <CardTitle >Completed</CardTitle>
-              <TodoList status='completed' />
-            </div>
+            <DndProvider>
+              <TodoView />
+            </DndProvider>
           </div>
         </QueryProvider>
       </main>
