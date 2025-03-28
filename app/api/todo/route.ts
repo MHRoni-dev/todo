@@ -1,5 +1,5 @@
 import { connectDB } from '@/lib/mongodb';
-import Todo from '@/model/Todo';
+import Todo, { ITODO } from '@/model/Todo';
 import { NextResponse } from 'next/server';
 import { createTodoSchema } from './schema';
 import ServerSidePrivateRoute from '@/hooks/private-route/useServerSidePrivateRoute';
@@ -18,12 +18,13 @@ export async function POST(req : Request) {
   const data =await ServerSidePrivateRoute()
   await connectDB();
   const body = await req.json()
-  const order = await Todo.countDocuments();
+  const order = await Todo.find<ITODO>({createdAt : {$lt: new Date(), $gte: new Date().setDate(new Date().getDate() - 1)}}).sort({order: -1}).limit(1);
+
   const parsed = createTodoSchema.safeParse(body);
   if(!parsed.success) {
     return NextResponse.json({error: parsed.error.errors}, {status: 400})
   }
 
-  const newTodo = await Todo.create({...parsed.data, order, user: data._id});
+  const newTodo = await Todo.create({...parsed.data, order: order.length <= 0 ? 0 : order[0].order + 1, user: data._id});
   return NextResponse.json(newTodo, {status: 201});
 }
