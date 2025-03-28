@@ -1,8 +1,8 @@
 "use client"
 import AddTodoForm from './add-todo/components/AddTodoForm';
-import QueryProvider from './components/QueryProvider';
+import QueryProvider from '../components/QueryProvider';
 import ToggleTheme from '@/components/theme/ToggleTheme';
-import TodoView from './components/TodoView';
+import TodoView from '../components/TodoView';
 import { DndProvider } from '@/context/DndProvider';
 
 export default function Home() {

@@ -1,4 +1,4 @@
-import AddTodoForm from './components/AddTodoForm';
+import AddTodoForm from '../add-todo/components/AddTodoForm';
 
 export default function page() {
   return (
