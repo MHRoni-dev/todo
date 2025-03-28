@@ -3,7 +3,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Check, Delete, Pen, PenOff, } from 'lucide-react'
 import { useState } from 'react'
-import { useTodoDelete, useTodoUpdate } from '../feature/todoQueries'
+import { useTodoDelete, useTodoUpdate } from '../feature/todo/todoQueries'
 import { Card, CardContent } from '@/components/ui/card'
 import Sortable from '@/components/dnd/SortableItem'
 

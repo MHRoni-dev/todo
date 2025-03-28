@@ -1,6 +1,6 @@
 "use client";
 
-import { useTodoAdd } from '@/app/feature/todoQueries';
+import { useTodoAdd } from '@/app/feature/todo/todoQueries';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';

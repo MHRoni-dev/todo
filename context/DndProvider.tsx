@@ -1,6 +1,6 @@
 "use client";
 import { Todo } from '@/app/api/todo/schema';
-import { useTodoUpdate } from '@/app/feature/todoQueries';
+import { useTodoUpdate } from '@/app/feature/todo/todoQueries';
 import { closestCorners, DndContext, DragEndEvent, DragOverEvent } from '@dnd-kit/core';
 import React from 'react';
 

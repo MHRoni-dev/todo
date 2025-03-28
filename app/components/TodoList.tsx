@@ -2,7 +2,7 @@
 
 import React, { useMemo } from 'react'
 import TodoItem from './TodoItem';
-import { useTodos } from '../feature/todoQueries';
+import { useTodos } from '../feature/todo/todoQueries';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { DragOverlay } from '@dnd-kit/core';
 
