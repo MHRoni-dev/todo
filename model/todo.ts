@@ -1,12 +1,18 @@
 import mongoose, {Schema, Document} from 'mongoose';
 
 export interface ITODO extends Document {
+  user: Schema.Types.ObjectId;
   title : string;
   completed: boolean;
   order: number;
 }
 
 const todoSchema = new Schema<ITODO>({
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
   title: {
     type: String,
     required: true,

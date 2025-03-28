@@ -15,6 +15,13 @@ export type UpdateTodo = z.infer<typeof updateTodoSchema>;
 
 export const fetchTodoSchema = createTodoSchema.extend({
   _id : z.string(),
+  user: z.union([
+    z.string(),
+    z.object({
+      _id: z.string(),
+      username: z.string(),
+    })
+  ]),
   order: z.number(),
   createdAt : z.date(),
   updatedAt : z.date(),

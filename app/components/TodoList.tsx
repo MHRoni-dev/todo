@@ -15,7 +15,7 @@ export default function TodoList({status} : Props) {
   const {data: list = [], isLoading} = useTodos()
   
   const filterdData = useMemo(() => list.filter(todo => status === "all" ? todo : status === "active" ? !todo.completed : todo.completed) , [list, status])
-
+  console.log(list)
   if(isLoading) {
     return <div>Loading...</div>
   }
