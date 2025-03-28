@@ -1,5 +1,5 @@
-import { useMutation } from '@tanstack/react-query'
-import { loginUserReq, registerUserReq } from './userService'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { checkUserReq, loginUserReq, registerUserReq } from './userService'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 
@@ -27,5 +27,13 @@ export const useLoginUser = () => {
     onError: (error : { response?: {data?: { message?: string }}}) => {
       toast.error(error?.response?.data?.message || 'Something went wrong')
     }
+  })
+}
+
+
+export const useCheckUser = () => {
+  return useQuery({
+    queryKey: ['isLoggedIn'],
+    queryFn: checkUserReq,
   })
 }
