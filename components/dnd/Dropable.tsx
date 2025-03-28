@@ -1,6 +1,7 @@
 import { useDroppable } from '@dnd-kit/core'
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 
-export default function Dropable({id, children} : {id: string, children : React.ReactNode}) {
+export default function Dropable({id, items, children} : {id: string, items: {id : string}[], children : React.ReactNode}) {
 
   const {setNodeRef} = useDroppable({id: id})
 
@@ -8,7 +9,9 @@ export default function Dropable({id, children} : {id: string, children : React.
 
   return (
     <div ref={setNodeRef}  >
-      {children}
+      <SortableContext items={items} strategy={verticalListSortingStrategy}>
+        {children}
+      </SortableContext>
     </div>
   )
 }

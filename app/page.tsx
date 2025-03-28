@@ -1,3 +1,4 @@
+"use client"
 import { Toaster } from 'sonner';
 import AddTodoForm from './add-todo/components/AddTodoForm';
 import QueryProvider from './components/QueryProvider';

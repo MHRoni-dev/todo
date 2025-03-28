@@ -3,6 +3,7 @@ import mongoose, {Schema, Document} from 'mongoose';
 export interface ITODO extends Document {
   title : string;
   completed: boolean;
+  order: number;
 }
 
 const todoSchema = new Schema<ITODO>({
@@ -14,6 +15,10 @@ const todoSchema = new Schema<ITODO>({
   completed: {
     type: Boolean,
     default: false
+  },
+  order: {
+    type: Number,
+    default: 0
   }
 }, { timestamps: true, versionKey: false });
 

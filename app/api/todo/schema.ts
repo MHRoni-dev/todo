@@ -7,12 +7,15 @@ export const createTodoSchema = z.object({
 export type CreateTodo = z.infer<typeof createTodoSchema>;
 
 
-export const updateTodoSchema = createTodoSchema.partial();
+export const updateTodoSchema = createTodoSchema.partial().extend({
+  order: z.number().optional(),
+});
 export type UpdateTodo = z.infer<typeof updateTodoSchema>;
 
 
 export const fetchTodoSchema = createTodoSchema.extend({
   _id : z.string(),
+  order: z.number(),
   createdAt : z.date(),
   updatedAt : z.date(),
 })

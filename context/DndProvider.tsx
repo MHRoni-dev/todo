@@ -36,24 +36,36 @@ export const DndProvider = ({children} : {children : React.ReactNode}) => {
   }
 
   function handleDragEnd(e : DragEndEvent) {
-    const {over, active} = e;
-    if(over && active) {
-      const todo = active.data.current as (Todo|undefined);
-     
-      if(todo) {
-        if(over.id === "completed" && todo?.completed) {
-          return false
-        }else if(over.id === "active" && !todo?.completed) {
-          return false
-        }else{
-          updateTodo.mutate({
-            ...todo,
-            completed: over.id === "completed"
-          })
-        }
+    // setOverId(null);
+    // const {over, active} = e;
+    // if(over && active) {
+    //   const todo = active.data.current?.todo as (Todo|undefined);
+    //   const todoSortable = active.data.current?.sortable ;
+    //   const overTodo = over.data.current?.todo as (Todo|undefined);
+    //   const overSortable = over.data.current?.sortable;
+
+    //   if(overTodo && todo){
+    //       updateTodo.mutate({
+    //           ...overTodo,
+    //         order: todo.order
+    //       })
+    //       updateTodo.mutate({
+    //         ...todo,
+    //         order: overTodo.order
+    //       })
+    //     }
+    //   if(todo) {
+    //     if((overSortable.containerId === "completed" && todo?.completed) || (overSortable.containerId === "active" && !todo?.completed) ) {
+    //       return false
+    //     }else{
+    //       updateTodo.mutate({
+    //         ...todo,
+    //         completed: overSortable.containerId === "completed"
+    //       })
+    //     }
         
-      }
-    }
+    //   }
+    // }
   }
 
   return (

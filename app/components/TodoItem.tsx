@@ -5,7 +5,7 @@ import { Check, Delete, Pen, PenOff, } from 'lucide-react'
 import { useState } from 'react'
 import { useTodoDelete, useTodoUpdate } from '../feature/todoQueries'
 import { Card, CardContent } from '@/components/ui/card'
-import Draggable from '@/components/dnd/Draggable'
+import Sortable from '@/components/dnd/SortableItem'
 
 export default function TodoItem({ todo }: { todo: Todo }) {
 
@@ -48,7 +48,7 @@ export default function TodoItem({ todo }: { todo: Todo }) {
 
 
   return (
-    <Draggable id={todo._id} data={todo}>
+    <Sortable id={todo._id} data={{todo}}>
       <Card className=''>
         <CardContent>
           <div key={todo._id} className='flex items-center gap-4' >
@@ -77,7 +77,7 @@ export default function TodoItem({ todo }: { todo: Todo }) {
           </div>
         </CardContent>
       </Card>
-    </Draggable>
+    </Sortable>
   )
 }
 
@@ -100,7 +100,7 @@ function ShowTodoItem ({todo} : {todo: Todo}) {
   
 
   return (
-    <Draggable id={todo._id} data={todo}>
+    <Sortable id={todo._id} data={{todo}}>
       <Card>
         <CardContent>
           <div key={todo._id} className='flex items-center gap-4 w-full max-w-md ' >
@@ -110,6 +110,6 @@ function ShowTodoItem ({todo} : {todo: Todo}) {
           </div>
         </CardContent>
       </Card>
-    </Draggable>
+    </Sortable>
   )
 }

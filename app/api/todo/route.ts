@@ -7,7 +7,8 @@ import { createTodoSchema } from './schema';
 // GET all todos
 export async function GET() {
   await connectDB();
-  const todos = await Todo.find().sort({createdAt: -1});
+  const todos = await Todo.find().sort({order: -1});
+  console.log(todos)
   return NextResponse.json(todos);
 }
 
@@ -15,12 +16,13 @@ export async function GET() {
 export async function POST(req : Request) {
   await connectDB();
   const body = await req.json()
-  console.log(body)
+  const order = await Todo.countDocuments();
+  console.log(order)
   const parsed = createTodoSchema.safeParse(body);
   if(!parsed.success) {
     return NextResponse.json({error: parsed.error.errors}, {status: 400})
   }
 
-  const newTodo = await Todo.create(parsed.data);
+  const newTodo = await Todo.create({...parsed.data, order});
   return NextResponse.json(newTodo, {status: 201});
 }
