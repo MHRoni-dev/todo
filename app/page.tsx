@@ -1,5 +1,4 @@
 "use client"
-import { Toaster } from 'sonner';
 import AddTodoForm from './add-todo/components/AddTodoForm';
 import QueryProvider from './components/QueryProvider';
 import ToggleTheme from '@/components/theme/ToggleTheme';
@@ -22,7 +21,6 @@ export default function Home() {
           </div>
         </QueryProvider>
       </main>
-      <Toaster position='top-right' richColors/>
     </div>
   );
 }
