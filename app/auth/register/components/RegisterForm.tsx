@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input, PasswordInput } from '@/components/ui/input'
 import { CreateUser } from '@/app/api/auth/schema'
 import { useState } from 'react'
+import Link from 'next/link'
 export default function RegisterForm() {
   const register = useRegisterUser()
   const [formData, setFormData] = useState<CreateUser>({
@@ -23,10 +24,10 @@ export default function RegisterForm() {
           <Input placeholder="Username" value={formData.username} onChange={(e) => setFormData({...formData, username: e.target.value})}/>
           <PasswordInput placeholder="XXXXXXXX" value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})}/>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="flex flex-col gap-4">
           <Button className='w-full' onClick={() => register.mutate(formData)}>Register</Button>
+          <Link href="/auth/login" className='text-sm'>Already have an account? Login</Link>
         </CardFooter>
-
     </Card>
   )
 }
