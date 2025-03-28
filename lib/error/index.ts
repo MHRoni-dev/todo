@@ -29,7 +29,7 @@ export default class AppError extends Error {
 
 }
 
-export const GiveErrorResponse = (error : AppError | Error) => {
+export const SendErrorResponse = (error : AppError | Error) => {
   const isProduction = config.default.NODE_ENV === 'production';
 
   

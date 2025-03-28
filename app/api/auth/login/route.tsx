@@ -3,13 +3,13 @@ import { connectDB } from '@/lib/mongodb';
 import User from '@/model/User';
 import { Hash } from '@/lib/hash';
 import Token from '@/lib/token';
-import AppError, { GiveErrorResponse } from '@/lib/error';
+import AppError, { SendErrorResponse } from '@/lib/error';
 import logger from '@/lib/logger';
 import SendResponse from '@/lib/response';
-import {  NextApiResponse } from 'next';
 import config from '@/config/env/config';
+import { cookies } from 'next/headers';
 
-export async function POST(req : Request, res: NextApiResponse) {
+export async function POST(req : Request) {
   try {
     
     // verify user data
@@ -39,13 +39,18 @@ export async function POST(req : Request, res: NextApiResponse) {
     username: user.username,
   })
 
-  logger.info(`User ${user.username} logged in`)
+  logger.info(`User ${user.username} logged in`);
 
   // return token
+  (await cookies()).set('token', token, {
+    httpOnly: true,
+    sameSite: 'strict',
+    maxAge: config.JWT.JWT_EXPIRES_IN
+  })
   return SendResponse(200, "User logged in successfully", {token})
 
 
   } catch (error ) {
-    return GiveErrorResponse(error as (AppError | Error))
+    return SendErrorResponse(error as (AppError | Error))
   }
 }

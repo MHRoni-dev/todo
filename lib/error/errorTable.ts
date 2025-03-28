@@ -4,7 +4,8 @@ export type ErrorCode =
 "AUTH_LOGIN_003" |
 "AUTH_REGISTER_001" |
 "AUTH_REGISTER_002" |
-"AUTH_REGISTER_003"
+"AUTH_REGISTER_003" |
+"AUTH_CHECK_001" 
 
 type ErrorDetails = {
   code: string,
@@ -48,7 +49,12 @@ export const  errorTable: ErrorTable = {
     "code": "AUTH_REGISTER_003",
     "message": "Everything was correct but user could not be created, maybe database is down",
     "statusCode": 500
-  }
+  },
+  "AUTH_CHECK_001": {
+    "code": "AUTH_CHECK_001",
+    "message": "token not found",
+    "statusCode": 401
+  },
 
 }
 

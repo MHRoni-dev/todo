@@ -1,4 +1,4 @@
-import AppError, { GiveErrorResponse } from '@/lib/error'
+import AppError, { SendErrorResponse } from '@/lib/error'
 import { createUserSchema } from '../schema'
 import User from '@/model/User'
 import logger from '@/lib/logger'
@@ -38,6 +38,6 @@ export async function POST(req: Request) {
 
     
   } catch (error) {
-    return GiveErrorResponse(error as (Error | AppError))
+    return SendErrorResponse(error as (Error | AppError))
   }
 }
