@@ -1,6 +1,7 @@
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
+import { Eye, EyeClosed } from 'lucide-react'
 
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   return (
@@ -18,4 +19,19 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   )
 }
 
-export { Input }
+function PasswordInput({ className, ...props }: React.ComponentProps<"input">) {
+  const [show, setShow] = React.useState(false)
+  return (
+    <div className='relative'>
+      <Input
+      type={show ? "text" : "password"}
+      data-slot="password-input"
+      className={cn("pr-10", className)}
+      {...props}
+      />
+      {show ? (<Eye className='absolute right-2 top-1/2 -translate-y-1/2' onClick={() => setShow(!show)} /> ) : (<EyeClosed className='absolute right-2 top-1/2 -translate-y-1/2' onClick={() => setShow(!show)} />)}
+    </div>
+  )
+}
+
+export { Input, PasswordInput }
