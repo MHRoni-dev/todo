@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { createTodoReq, deleteTodoReq, fetchAllTodosReq, updateTodoReq } from './todoService'
-import { CreateTodo, Todo } from '../api/todo/schema'
+import { CreateTodo, Todo } from '../../api/todo/schema'
 import { toast } from 'sonner'
 
 export const useTodos =  () => {
