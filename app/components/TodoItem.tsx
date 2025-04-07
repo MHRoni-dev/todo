@@ -48,8 +48,8 @@ export default function TodoItem({ todo }: { todo: Todo }) {
 
 
   return (
-    <Sortable id={todo._id} data={{todo}}>
-      <Card className=''>
+    <Sortable id={todo._id} data={{todo, type: "todo"}}>
+      <Card className='cursor-pointer'>
         <CardContent>
           <div key={todo._id} className='flex items-center gap-4' >
             <Checkbox  checked={todo.completed} onClick={handleToggleCompleted} onPointerDown={(e) => e.stopPropagation()}/>
@@ -84,7 +84,7 @@ export default function TodoItem({ todo }: { todo: Todo }) {
 
 
 
-function ShowTodoItem ({todo} : {todo: Todo}) {
+function ShowTodoItem ({todo} : {todo: Todo,}) {
 
   const updateTodo = useTodoUpdate();
 
@@ -100,8 +100,8 @@ function ShowTodoItem ({todo} : {todo: Todo}) {
   
 
   return (
-    <Sortable id={todo._id} data={{todo}}>
-      <Card>
+    <Sortable id={todo._id} data={{todo, type: "todo"}}>
+      <Card className='cursor-pointer'>
         <CardContent>
           <div key={todo._id} className='flex items-center gap-4 w-full max-w-md ' >
             <Checkbox  checked={todo.completed} onClick={handleToggleCompleted} onPointerDown={(e) => e.stopPropagation()}/>

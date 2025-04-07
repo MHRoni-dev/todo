@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { createTodoReq, deleteTodoReq, fetchAllTodosReq, updateTodoReq } from './todoService'
+import { createTodoReq, deleteTodoReq, fetchAllTodosReq, reorderTodos, updateTodoReq } from './todoService'
 import { CreateTodo, Todo } from '../../api/todo/schema'
 import { toast } from 'sonner'
 
@@ -46,7 +46,7 @@ export const useTodoUpdate = () => {
       queryClient.setQueryData(['todo'], (oldTodos : Todo[]) => oldTodos.map((t: Todo) => t._id === todo._id ? todo : t))
     },
     onSuccess: () => { 
-      toast.success('Todo Updated Successfully')
+      // toast.success('Todo Updated Successfully')
     },
     onError: () => {
       toast.error('Something went wrong')
@@ -71,6 +71,23 @@ export const useTodoDelete = () => {
     },
     onSuccess: () => {
       toast.success('Todo Deleted Successfully')
+    },
+    onError: () => {
+      toast.error('Something went wrong')
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['todo'],
+      })
+    }
+  })
+}
+
+export const useReorderTodos = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: reorderTodos,
+    onSuccess: () => {
     },
     onError: () => {
       toast.error('Something went wrong')

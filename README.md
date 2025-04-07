@@ -23,9 +23,8 @@
 ## Feature
 - [x] CRUD  Todo 
 - [x] Toggle Between Completed and Active state of a todo
-- [ ] Drag and Drop
-- [ ] Sorting
-- [ ] Filtering
+- [x] Drag and Drop
+- [x] Sorting
 
 ## Getting Started
 

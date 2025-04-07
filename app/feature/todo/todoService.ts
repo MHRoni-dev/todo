@@ -10,3 +10,4 @@ export const updateTodoReq = async (todo: Todo) => axios.put(`/api/todo/${todo._
 
 export const deleteTodoReq = async (todoId: string) => axios.delete(`/api/todo/${todoId}`);
 
+export const reorderTodos = async ({from, to} : {from: Todo, to: Todo}) => axios.put('/api/todo', {from, to});
