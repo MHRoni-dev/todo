@@ -37,6 +37,7 @@ export const useCheckUser = () => {
   return useQuery({
     queryKey: ['isLoggedIn'],
     queryFn: checkUserReq,
+    retry: false,
   })
 }
 
