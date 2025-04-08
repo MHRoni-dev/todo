@@ -9,9 +9,9 @@ import AppError, { SendErrorResponse } from '@/lib/error';
 
 // GET all todos
 export async function GET() {
-  await ServerSidePrivateRoute()
+  const data = await ServerSidePrivateRoute()
   await connectDB();
-  const todos = await Todo.find().sort({order: -1});
+  const todos = await Todo.find({user: data._id}).sort({order: -1});
   return NextResponse.json(todos);
 }
 
