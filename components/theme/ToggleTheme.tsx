@@ -28,7 +28,7 @@ export default function ToggleTheme() {
     
 
   return (
-    <div className='flex justify-end mb-4'>
+    <div className='flex justify-end '>
       <p className='flex items-center gap-2'>Dark Mode: <Switch checked={darkMode} onClick={handleToggleDarkMode}/>  </p>
     </div>
   )

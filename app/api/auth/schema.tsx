@@ -1,3 +1,4 @@
+import objectIdZod from '@/app/schema/ObjectId';
 import z from 'zod';
 
 export const createUserSchema = z.object({
@@ -15,7 +16,7 @@ export const loginUserSchema = z.object({
 export type LoginUser = z.infer<typeof loginUserSchema>
 
 export const userSchema = createUserSchema.extend({
-  _id: z.string(),
+  _id: objectIdZod,
   createdAt: z.date(),
   updatedAt: z.date(),
 })

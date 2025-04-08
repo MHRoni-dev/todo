@@ -3,7 +3,7 @@ import Todo from '@/model/Todo';
 import { NextResponse } from 'next/server';
 
 
-export const PUT = async (req: Request, { params }: { params: { todoId: string }}) => {
+export const PUT = async (req: Request, { params }: { params:Promise<{ todoId: string }> }) => {
   const {todoId} = await params;
   if(!todoId) {
     return NextResponse.json("todoId is required", {status: 400})
@@ -15,7 +15,7 @@ export const PUT = async (req: Request, { params }: { params: { todoId: string }
   return NextResponse.json(todo);
 }
 
-export const DELETE = async (req: Request, { params }: { params: { todoId: string }}) => {
+export const DELETE = async (req: Request, { params }: { params:Promise<{ todoId: string }> }) => {
   const {todoId} = await params;
   if(!todoId) {
     return NextResponse.json("todoId is required", {status: 400})

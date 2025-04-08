@@ -1,10 +1,10 @@
 import { config } from '@/config';
 import JWT, { JwtPayload as JWTJwtPayload } from 'jsonwebtoken';
-import { Schema } from 'mongoose';
+import {  Types } from 'mongoose';
 
 
 export interface JwtPayload extends JWTJwtPayload {
-  _id : Schema.Types.ObjectId;
+  _id : Types.ObjectId;
   username: string;
 }
 
