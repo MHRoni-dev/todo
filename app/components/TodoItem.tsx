@@ -6,11 +6,15 @@ import { useState } from 'react'
 import { useTodoDelete, useTodoUpdate } from '../feature/todo/todoQueries'
 import { Card, CardContent } from '@/components/ui/card'
 import Sortable from '@/components/dnd/SortableItem'
+import { useTour } from '@reactour/tour'
+import { cn } from '@/lib/utils'
+
 
 export default function TodoItem({ todo }: { todo: Todo }) {
-
+  
   const [enabled, setEnabled] = useState(false)
   const [title, setTitle] = useState("")
+  const {isOpen, currentStep} = useTour()
 
   const updateTodo = useTodoUpdate();
 
@@ -46,10 +50,9 @@ export default function TodoItem({ todo }: { todo: Todo }) {
     return <ShowTodoItem todo={todo} />
   }
 
-
   return (
     <Sortable id={todo._id} data={{todo, type: "todo"}}>
-      <Card className='cursor-pointer'>
+      <Card className={cn('cursor-pointer todo-item',isOpen && currentStep === 2 && "animate-bounce")}>
         <CardContent>
           <div key={todo._id} className='flex items-center gap-4' >
             <Checkbox  checked={todo.completed} onClick={handleToggleCompleted} onPointerDown={(e) => e.stopPropagation()}/>
@@ -86,6 +89,7 @@ export default function TodoItem({ todo }: { todo: Todo }) {
 
 function ShowTodoItem ({todo} : {todo: Todo,}) {
 
+  const {isOpen, currentStep} = useTour()
   const updateTodo = useTodoUpdate();
 
   const deleteTodo = useTodoDelete();
@@ -101,7 +105,7 @@ function ShowTodoItem ({todo} : {todo: Todo,}) {
 
   return (
     <Sortable id={todo._id} data={{todo, type: "todo"}}>
-      <Card className='cursor-pointer'>
+      <Card className={cn('cursor-pointer todo-item',isOpen && currentStep === 2 && "animate-bounce")} > 
         <CardContent>
           <div key={todo._id} className='flex items-center gap-4 w-full max-w-md ' >
             <Checkbox  checked={todo.completed} onClick={handleToggleCompleted} onPointerDown={(e) => e.stopPropagation()}/>

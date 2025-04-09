@@ -27,7 +27,7 @@ export default function TodoList({status} : Props) {
         {
           filterdData.length > 0 ? filterdData.map(todo => (
             <TodoItem key={todo._id} todo={todo} />
-          )) : <div className='py-2'>No todo {status}</div>
+          )) : <div className='pt-2 pb-14'>No todo {status}</div>
         }
         </div>
       </Sortable>

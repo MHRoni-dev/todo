@@ -21,6 +21,6 @@ function LogoutButton  ()  {
     logout.mutate();
   }
   return (
-    <LogOut onClick={handleLogut} className={`cursor-pointer ${logout.isLoading ? "opacity-50" : "opacity-100"}`} />
+    <LogOut data-tour="logout-button" onClick={handleLogut} className={`cursor-pointer ${logout.isLoading ? "opacity-50" : "opacity-100"}`} />
   )
 }
