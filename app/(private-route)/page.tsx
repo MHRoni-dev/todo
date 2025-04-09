@@ -6,6 +6,7 @@ import TodoView from '../components/TodoView';
 import { DndProvider } from '@/context/DndProvider';
 import Logout from './components/Logout';
 import TourProvider from '@/context/TourProvider';
+import GuideButton from './components/GuideButton';
 
 
 export default function Home() {
@@ -28,6 +29,7 @@ export default function Home() {
               </div>
           </QueryProvider>
         </main>
+        <GuideButton />
       </TourProvider>
     </div>
   );
