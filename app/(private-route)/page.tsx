@@ -7,9 +7,19 @@ import { DndProvider } from '@/context/DndProvider';
 import Logout from './components/Logout';
 import TourProvider from '@/context/TourProvider';
 import GuideButton from './components/GuideButton';
+import { useEffect } from 'react';
+import {Workbox} from 'workbox-window'
+import SyncManager from '@/components/offline/SyncManager';
 
 
 export default function Home() {
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      const wb = new Workbox('/service-worker.js');
+      wb.register();
+    }
+  }, []);
+
   return (
     <div className="min-h-screen p-8 pb-20 gap-16 sm:py-20 sm:pt-8 font-[family-name:var(--font-geist-sans)] container mx-auto">
       <TourProvider>
@@ -19,6 +29,7 @@ export default function Home() {
         </div>
         <main className="space-y-8 sm:pt-20">
           <QueryProvider>
+              <SyncManager />
               <div className='w-full flex items-center justify-center '>
                 <AddTodoForm />
               </div>
