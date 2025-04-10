@@ -2,9 +2,11 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { createTodoReq, deleteTodoReq, fetchAllTodosReq, reorderTodos, updateTodoReq } from './todoService'
 import { CreateTodo, Todo } from '../../api/todo/schema'
 import { toast } from 'sonner'
+import { deleteTodoInIDB, syncTodoInIDB, updateTodoInIDB } from '@/lib/idb'
 
 export const useTodos =  () => {
   return useQuery<Todo[]>({
+    networkMode: 'always',
     queryKey: ['todo'],
     queryFn: fetchAllTodosReq
   })
@@ -15,14 +17,22 @@ export const useTodoAdd = () => {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: createTodoReq,
-    onMutate: (todo: CreateTodo) => {
+    networkMode: 'always',
+    onMutate: (todo: CreateTodo & {notOptimistic?: boolean}) => {
       queryClient.cancelQueries({
         queryKey: ['todo'],
       })
-      queryClient.setQueryData(['todo'], (oldTodos : Todo[]) => [{_id: Date.now().toString(), ...todo} ,...oldTodos])
+      if(!todo.notOptimistic) {
+        queryClient.setQueryData(['todo'], (oldTodos : Todo[]) => oldTodos ? [{_id: Date.now().toString(), ...todo}, ...oldTodos] : [{_id: Date.now().toString(), ...todo}])
+      }
     },
-    onSuccess: () => {
-      toast.success('Todo Added Successfully')
+    onSuccess: async (data, {notOptimistic}) => {
+      if(!notOptimistic) {
+        toast.success('Todo Added Successfully')
+      }
+      if(data){
+        await syncTodoInIDB(data?.data)
+      }
     },
     onError: () => {
       toast.error('Something went wrong')
@@ -39,16 +49,20 @@ export const useTodoUpdate = () => {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: updateTodoReq,
-    onMutate: (todo: Todo) => {
+    networkMode: 'always',
+    onMutate: (todo: Todo & {notOptimistic?: boolean} ) => {
       queryClient.cancelQueries({
         queryKey: ['todo'],
       })
-      queryClient.setQueryData(['todo'], (oldTodos : Todo[]) => oldTodos.map((t: Todo) => t._id === todo._id ? todo : t))
+      queryClient.setQueryData(['todo'], (oldTodos : Todo[]) => oldTodos ? oldTodos.map((t: Todo) => t._id === todo._id ? todo : t) : [todo])
     },
-    onSuccess: () => { 
-      // toast.success('Todo Updated Successfully')
+    onSuccess: async (res) => { 
+      if(res ) {
+        await updateTodoInIDB({...res?.data, synced: "true"})
+      }
     },
-    onError: () => {
+    onError: (error) => {
+      console.log(error)
       toast.error('Something went wrong')
     },
     onSettled: () => {
@@ -63,16 +77,23 @@ export const useTodoDelete = () => {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: deleteTodoReq,
-    onMutate: (todoId : string) => {
+    networkMode: 'always',
+    onMutate: ({todoId}: {todoId: string, notOptimistic?: boolean}) => {
       queryClient.cancelQueries({
         queryKey: ['todo'],
       })
       queryClient.setQueryData(['todo'], (oldTodos : Todo[]) => oldTodos.filter((t: Todo) => t._id !== todoId))
     },
-    onSuccess: () => {
-      toast.success('Todo Deleted Successfully')
+    onSuccess: async (res, todo) => {
+      if(!todo.notOptimistic){
+        toast.success('Todo Deleted Successfully')
+      }
+      if(res){
+        await deleteTodoInIDB(todo.todoId)
+      }
     },
-    onError: () => {
+    onError: (e) => {
+      console.log(e)
       toast.error('Something went wrong')
     },
     onSettled: () => {
@@ -87,6 +108,7 @@ export const useReorderTodos = () => {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: reorderTodos,
+    networkMode: 'always',
     onSuccess: () => {
     },
     onError: () => {

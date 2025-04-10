@@ -27,7 +27,7 @@ export default function AddTodoForm() {
       localStorage.setItem('tour', "done")
       setIsOpen(true)
     }
-  }, [])
+  }, [setIsOpen])
 
   //< tour setup
   useEffect(() => {
@@ -51,9 +51,10 @@ export default function AddTodoForm() {
       setTitle('');
     }
     if(isOpen && currentStep === 1 && meta){
-      deleteTodo.mutate(meta)
+      deleteTodo.mutate({todoId: meta})
     }
     
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, currentStep])
   const tourAddButtonClassName = isOpen && currentStep === 1 ? "animate-bounce" : ""
   //>
@@ -61,8 +62,8 @@ export default function AddTodoForm() {
 
   return (
     <div className='flex items-center gap-2 flex-1 max-w-md'>
-      <Input data-tour='add-todo-input' placeholder='Add todo' value={title} onChange={(e) => setTitle(e.target.value)} disabled={addTodo.isPending}/>
-      <Button onClick={handleSubmit} disabled={addTodo.isPending} data-tour='add-todo-button' className={cn(tourAddButtonClassName)}> Add </Button>
+      <Input data-tour='add-todo-input' placeholder='Add todo' value={title} onChange={(e) => setTitle(e.target.value)} />
+      <Button onClick={handleSubmit}  data-tour='add-todo-button' className={cn(tourAddButtonClassName)}> Add </Button>
     </div>
   )
 }

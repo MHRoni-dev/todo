@@ -36,7 +36,7 @@ export default function TodoItem({ todo }: { todo: Todo }) {
   }
 
   const handleDelete = () => {
-    deleteTodo.mutate(todo._id)
+    deleteTodo.mutate({todoId: todo._id})
   }
 
   const handleToggleCompleted = () => {
@@ -58,7 +58,7 @@ export default function TodoItem({ todo }: { todo: Todo }) {
             <Checkbox  checked={todo.completed} onClick={handleToggleCompleted} onPointerDown={(e) => e.stopPropagation()}/>
             {
               enabled ? (
-                <Input placeholder={todo.title} disabled={!isEditAble()} value={title} onChange={(e) => setTitle(e.target.value)} />
+                <Input placeholder={todo.title} disabled={!isEditAble()} value={title} onChange={(e) => setTitle(e.target.value)} onPointerDown={(e) => e.stopPropagation()} />
               ) : (
                 <p className='w-full py-1.5'>{todo.title}</p>
               )
@@ -95,7 +95,7 @@ function ShowTodoItem ({todo} : {todo: Todo,}) {
   const deleteTodo = useTodoDelete();
 
   const handleDelete = () => {
-    deleteTodo.mutate(todo._id)
+    deleteTodo.mutate({todoId: todo._id})
   }
 
   const handleToggleCompleted = () => {

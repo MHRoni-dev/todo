@@ -53,7 +53,7 @@ export default function SyncManager() {
     return () => {
       window.removeEventListener('online', syncTodos)
     }
-  }, [queryClient])
+  }, [queryClient, addTodo, updateTodo, deleteTodo])
 
   React.useEffect(() => {
     const syncToIDB = async () => {
