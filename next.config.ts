@@ -1,7 +1,15 @@
-import type { NextConfig } from "next";
+// import type { NextConfig } from "next";
 import path from 'path';
+import nextPwa from 'next-pwa';
 
-const nextConfig: NextConfig = {
+const withPWA = nextPwa({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+  disable: false,
+})
+
+const nextConfig = withPWA({
   /* config options here */
   webpack: (config) => {
     config.resolve = {
@@ -13,6 +21,6 @@ const nextConfig: NextConfig = {
     };
     return config;
   }
-};
+});
 
 export default nextConfig;
